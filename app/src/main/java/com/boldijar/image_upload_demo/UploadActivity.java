@@ -63,6 +63,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private void uploadFile() {
         if (mFile == null) {
             Toast.makeText(this, "You didn't selected any image!", Toast.LENGTH_SHORT).show();
+            return;
         }
     }
 
