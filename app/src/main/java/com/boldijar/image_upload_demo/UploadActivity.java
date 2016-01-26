@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -24,6 +25,9 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     // the views
     private ImageView mImageView;
     private Button mButton;
+    private Button mUploadButton;
+
+    // other stuff
     private File mFile;
 
     @Override
@@ -34,12 +38,18 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         // create views, add event listeners
         mImageView = (ImageView) findViewById(R.id.imageview);
         mButton = (Button) findViewById(R.id.button);
+        mUploadButton = (Button) findViewById(R.id.upload);
         mImageView.setOnClickListener(this);
         mButton.setOnClickListener(this);
+        mUploadButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.upload) {
+            uploadFile();
+            return;
+        }
         if (!gotStoragePermission()) {
             askStoragePermission();
             return;
@@ -48,6 +58,12 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, SELECT_PHOTO);
         // start intent to get image
+    }
+
+    private void uploadFile() {
+        if (mFile == null) {
+            Toast.makeText(this, "You didn't selected any image!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
