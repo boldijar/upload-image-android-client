@@ -72,6 +72,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == SELECT_PHOTO && resultCode == RESULT_OK && null != data) {
+            // get selected image from activity result
             Uri selectedImage = data.getData();
             mImageView.setImageURI(selectedImage);
 
