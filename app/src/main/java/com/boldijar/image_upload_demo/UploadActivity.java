@@ -75,12 +75,12 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         mUploadBackend.getUploadService().uploadImage(typedFile, new Callback<UploadResponse>() {
             @Override
             public void success(UploadResponse uploadResponse, Response response) {
-
+                Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-
+                Toast.makeText(getApplicationContext(), retrofitError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
