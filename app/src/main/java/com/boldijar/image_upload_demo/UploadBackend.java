@@ -9,7 +9,7 @@ import retrofit.RestAdapter;
  * Created by Paul on 1/26/2016.
  */
 public class UploadBackend {
-    private static final String ENDPOINT = "http://boldijar.esy.es/api.php/upload"; // your endpoint
+    private static final String ENDPOINT = "http://boldijar.esy.es/api.php/"; // your endpoint
     private RestAdapter mRestAdapter;
     private UploadService mUploadService;
 
