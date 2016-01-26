@@ -8,14 +8,24 @@
     tools:context="com.boldijar.image_upload_demo.UploadActivity">
 
     <ImageView
+        android:id="@+id/imageview"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerInside" />
 
     <Button
+        android:id="@+id/button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Pick image"
         android:textAllCaps="true" />
+
+    <Button
+        android:id="@+id/upload"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Upload"
+        android:textAllCaps="true" />
+
 
 </LinearLayout>
