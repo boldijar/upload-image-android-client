@@ -17,6 +17,11 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.mime.TypedFile;
+
 public class UploadActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int SELECT_PHOTO = 69;
@@ -29,6 +34,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     // other stuff
     private File mFile;
+    private UploadBackend mUploadBackend = new UploadBackend();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,18 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(this, "You didn't selected any image!", Toast.LENGTH_SHORT).show();
             return;
         }
+        TypedFile typedFile = new TypedFile("image/*", mFile);
+        mUploadBackend.getUploadService().uploadImage(typedFile, new Callback<UploadResponse>() {
+            @Override
+            public void success(UploadResponse uploadResponse, Response response) {
+
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+
+            }
+        });
     }
 
     @Override
