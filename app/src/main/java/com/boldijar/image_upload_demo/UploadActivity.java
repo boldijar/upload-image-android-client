@@ -1,6 +1,8 @@
 package com.boldijar.image_upload_demo;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -12,7 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -31,6 +35,9 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private ImageView mImageView;
     private Button mButton;
     private Button mUploadButton;
+    private TextView mUrl;
+    private Button mCopyButton;
+
 
     // other stuff
     private File mFile;
@@ -45,15 +52,24 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         mImageView = (ImageView) findViewById(R.id.imageview);
         mButton = (Button) findViewById(R.id.button);
         mUploadButton = (Button) findViewById(R.id.upload);
+        mUrl = (TextView) findViewById(R.id.url);
+        mCopyButton = (Button) findViewById(R.id.upload_copy);
         mImageView.setOnClickListener(this);
         mButton.setOnClickListener(this);
         mUploadButton.setOnClickListener(this);
+        mCopyButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.upload) {
             uploadFile();
+            return;
+        }
+        if (v.getId() == R.id.upload_copy) {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+            clipboard.setPrimaryClip(ClipData.newPlainText(mUrl.getText().toString(), mUrl.getText().toString()));
+            Toast.makeText(this, "Url copied to clipboard", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!gotStoragePermission()) {
@@ -75,7 +91,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         mUploadBackend.getUploadService().uploadImage(typedFile, new Callback<UploadResponse>() {
             @Override
             public void success(UploadResponse uploadResponse, Response response) {
-                Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
+                mUrl.setText(UploadBackend.ENDPOINT_ROOT + "images/" + uploadResponse.imagePath);
             }
 
             @Override

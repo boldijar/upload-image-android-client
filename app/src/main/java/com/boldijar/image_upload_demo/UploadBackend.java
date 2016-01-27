@@ -1,15 +1,14 @@
 package com.boldijar.image_upload_demo;
 
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
 import retrofit.RestAdapter;
 
 /**
  * Created by Paul on 1/26/2016.
  */
 public class UploadBackend {
-    private static final String ENDPOINT = "http://boldijar.esy.es/api.php/"; // your endpoint
+    public static final String ENDPOINT = "http://boldijar.esy.es/api.php/"; // your endpoint
+    public static final String ENDPOINT_ROOT = "http://boldijar.esy.es/"; // your endpoint
     private RestAdapter mRestAdapter;
     private UploadService mUploadService;
 
